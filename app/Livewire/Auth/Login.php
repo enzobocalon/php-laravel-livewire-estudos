@@ -27,6 +27,7 @@ class Login extends Component
 {
     public $email;
     public $password;
+    public $remember = false;
 
     protected $queryString = [
         'email' => ['except' => ''],
@@ -45,7 +46,7 @@ class Login extends Component
             'password.min' => 'A senha deve ter no mínimo 6 caracteres',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $this->remember)) {
             session()->regenerate();
             return redirect()->route('home.index');
         } else {

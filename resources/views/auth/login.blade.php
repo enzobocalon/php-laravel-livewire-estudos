@@ -27,6 +27,17 @@
                 @enderror
             </div>
 
+            <div class="mb-4"
+                <label class="inline-flex items-center">
+                    <input
+                        type="checkbox"
+                        class="form-checkbox"
+                        wire:model="remember"
+                    >
+                    <span class="ml-2">Remember Me</span>
+                </label>
+            </div>
+
             <button
                 type="submit"
                 class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
