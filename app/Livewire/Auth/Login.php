@@ -4,6 +4,7 @@ namespace App\Livewire\Auth;
 use Illuminate\Support\Facades\Auth;
 
 use Livewire\Component;
+use Livewire\Attributes\Title;
 
 /*
     boot() -> Chamado em toda requisição, logo após o componente ser instanciado e antes de qualquer outro lifecycle hook
@@ -22,7 +23,7 @@ use Livewire\Component;
 
     dehydrate() -> Chamado em toda requisição, depois do render(), antes da resposta ser enviada ao browser
 */
-
+#[Title('Login')]
 class Login extends Component
 {
     public $email;

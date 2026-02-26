@@ -12,6 +12,7 @@
     </head>
     <body>
         <div class="min-h-screen bg-gray-100 w-full">
+            <livewire:layout.navbar />
             {{ $slot }}
         </div>
 

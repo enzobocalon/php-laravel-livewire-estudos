@@ -4,7 +4,9 @@ namespace App\Livewire\Auth;
 
 use Livewire\Component;
 use App\Models\User;
+use Livewire\Attributes\Title;
 
+#[Title('Signup')]
 class Signup extends Component
 {
     public $name;
