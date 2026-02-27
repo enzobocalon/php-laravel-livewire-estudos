@@ -10,18 +10,33 @@ use Livewire\Component;
 #[Title('Home')]
 class Index extends Component
 {
-    public $posts;
-    public function mount() {
-        $this->posts = Post::latest()->take(10)->get(); // carrega os 10 últimos
-    }
+    // #[On('postCreated')]
+    // public function addToList($postId) {
+    //     $this->posts->prepend(Post::findOrFail( $postId ) );
+    // }
+
+    // #[On('postDeleted')]
+    // public function removeFromList($postId) {
+    //     $this->posts = $this->posts->reject(fn($post) => $post->id == $postId);
+    // }
+
+    // #[On('postUpdated')]
+    // public function updateList($postId) {
+    //     $updatedPost = Post::findOrFail($postId);
+    //     $this->posts = $this->posts->map(fn($post) => $post->id == $postId ? $updatedPost : $post);
+    // }
+
+    // Não precisa manter a lógica anterior pq agora está usando o paginate, entao ele ja cuida de atualizar a lista
 
     #[On('postCreated')]
-    public function addToList($postId) {
-        $this->posts->prepend(Post::find( $postId ) );
-    }
+    #[On('postUpdated')]
+    #[On('postDeleted')]
+    public function refresh() {}
 
     public function render()
     {
-        return view('home.index');
+        return view('home.index', [
+            'posts' => Post::latest()->paginate(10)
+        ]);
     }
 }
