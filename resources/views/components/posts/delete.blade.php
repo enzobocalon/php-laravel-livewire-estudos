@@ -1,11 +1,16 @@
 <x-layout.modal>
     <h2 class="text-lg font-bold mb-4">Apagar Postagem</h2>
     <p>
-        Tem certeza que deseja apagar a postagem: <strong x-text="selectedPostTitle"></strong>?
+        Tem certeza que deseja apagar a postagem:
+        <strong x-text="selectedPostTitle"></strong>
+        ?
     </p>
 
     <div class="flex justify-end gap-2 mt-4">
-        <button x-on:click="openDeleteModal = false" class="px-4 py-2 bg-gray-300 rounded cursor-pointer">
+        <button
+            x-on:click="openDeleteModal = false"
+            class="px-4 py-2 bg-gray-300 rounded cursor-pointer"
+        >
             Cancelar
         </button>
         <button

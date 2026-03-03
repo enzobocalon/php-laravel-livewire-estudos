@@ -5,6 +5,7 @@
         @isset($title)
             <h1 class="text-center font-md text-2xl">{{ $title }}</h1>
         @endisset
+
         {{ $slot }}
     </div>
 </div>

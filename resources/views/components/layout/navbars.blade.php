@@ -7,7 +7,10 @@
             @auth
                 <li><a href="{{ route('home.index') }}">Home</a></li>
                 <li>
-                    <button wire:click="logout" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                    <button
+                        wire:click="logout"
+                        class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
                         Logout
                     </button>
                 </li>
