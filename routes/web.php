@@ -20,4 +20,5 @@ Route::group([
     'middleware' => 'auth',
 ], function () {
     Route::livewire('/', 'home.index')->name('index');
+    Route::livewire('/posts/{slug}', 'home.detail')->name('detail');
 });

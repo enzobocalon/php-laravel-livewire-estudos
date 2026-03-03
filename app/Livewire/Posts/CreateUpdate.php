@@ -10,6 +10,7 @@ use Livewire\Attributes\On;
 
 class CreateUpdate extends Component
 {
+    public $channel = 'home';
     public $postId = null;
 
     public $title;
@@ -29,7 +30,7 @@ class CreateUpdate extends Component
         $post = Post::findOrFail($id);
         if ($post->user_id !== auth()->id()) {
             $this->reset(['title', 'image_path', 'content']);
-            $this->dispatch('notify-home', type: 'error', message: 'Você não pode editar esta postagem.');
+            $this->dispatch('notify-' . $this->channel, type: 'error', message: 'Você não pode editar esta postagem.');
             $this->dispatch('close-create-update-modal');
             return;
         }
@@ -62,7 +63,7 @@ class CreateUpdate extends Component
         } else {
             $post = Post::findOrFail($this->postId);
             if ($post->user_id !== auth()->id()) {
-                $this->dispatch('notify-home', type: 'error', message: 'Você não pode editar esta postagem.');
+                $this->dispatch('notify-' . $this->channel, type: 'error', message: 'Você não pode editar esta postagem.');
                 $this->reset(['title', 'image_path', 'content']);
                 $this->dispatch('close-create-update-modal');
                 return;
@@ -74,7 +75,7 @@ class CreateUpdate extends Component
                 'content' => $this->content,
             ]);
             $this->dispatch('postUpdated', $this->postId);
-            $this->dispatch('notify-home', type: 'success', message: 'Postagem atualizada com sucesso.');
+            $this->dispatch('notify-' . $this->channel, type: 'success', message: 'Postagem atualizada com sucesso.');
         }
         $this->reset(['title', 'image_path', 'content']);
         $this->dispatch('close-create-update-modal');
