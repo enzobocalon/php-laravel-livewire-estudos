@@ -12,7 +12,7 @@ class Delete extends Component
 
     public function delete($postId) {
         $post = Post::findOrFail($postId);
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id !== auth()->id() && !auth()->user()->is_admin) {
             $this->dispatch('notify-' . $this->channel, type: 'error', message: 'Você não pode apagar esta postagem.');
             $this->dispatch('close-delete-modal');
             return;

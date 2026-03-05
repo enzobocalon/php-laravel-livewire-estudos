@@ -22,3 +22,12 @@ Route::group([
     Route::livewire('/', 'home.index')->name('index');
     Route::livewire('/posts/{slug}', 'home.detail')->name('detail');
 });
+
+Route::group([
+    'as' => 'admin.',
+    'name' => 'admin.',
+    'middleware' => ['admin']
+], function () {
+    Route::livewire('/admin/dashboard', 'admin.dashboard.index')->name('dashboard.index');
+    Route::livewire('/admin/users', 'admin.dashboard.users')->name('dashboard.users');
+});

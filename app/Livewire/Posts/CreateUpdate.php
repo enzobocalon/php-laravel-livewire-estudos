@@ -28,7 +28,7 @@ class CreateUpdate extends Component
         $this->postId = $id;
         // Validação para garantir que o post existe e que o usuario pode editar
         $post = Post::findOrFail($id);
-        if ($post->user_id !== auth()->id()) {
+        if ($post->user_id !== auth()->id() && !auth()->user()->is_admin) {
             $this->reset(['title', 'image_path', 'content']);
             $this->dispatch('notify-' . $this->channel, type: 'error', message: 'Você não pode editar esta postagem.');
             $this->dispatch('close-create-update-modal');
@@ -62,7 +62,7 @@ class CreateUpdate extends Component
             $this->dispatch('notify-home', type: 'success', message: 'Postagem criada com sucesso.');// é o nome do evento no x-on
         } else {
             $post = Post::findOrFail($this->postId);
-            if ($post->user_id !== auth()->id()) {
+            if ($post->user_id !== auth()->id() && !auth()->user()->is_admin) {
                 $this->dispatch('notify-' . $this->channel, type: 'error', message: 'Você não pode editar esta postagem.');
                 $this->reset(['title', 'image_path', 'content']);
                 $this->dispatch('close-create-update-modal');

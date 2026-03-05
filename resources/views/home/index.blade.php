@@ -1,28 +1,9 @@
-<div
-    x-data="{
-        openCreateUpdateModal: false,
-        openDeleteModal: false,
-        selectedPostId: null,
-        selectedPostTitle: '',
-        isLoading: false,
-    }"
-    x-on:close-create-update-modal="openCreateUpdateModal = false"
-    x-on:close-delete-modal="openDeleteModal = false"
-    class="w-full max-w-360 m-auto flex flex-col items-center pt-4"
->
-    <div x-show="openCreateUpdateModal">
-        <livewire:posts.create-update channel="home" />
-    </div>
+<x-posts.crud-container :posts="$posts" channel="home">
 
-    <div x-show="openDeleteModal">
-        <livewire:posts.delete channel="home" />
-    </div>
-
-    <div class="w-full">
-        <x-layout.notification channel="home" />
-
+    <x-slot:header>
         <div class="w-full flex justify-between items-center">
             <h1 class="font-semibold text-2xl">Postagens</h1>
+
             <button
                 x-on:click="
                     openCreateUpdateModal = true
@@ -33,52 +14,6 @@
                 Criar
             </button>
         </div>
+    </x-slot>
 
-        @if ($posts->isEmpty())
-            <div class="flex items-center justify-center w-full">
-                <p class="mt-4 text-gray-500">Nenhuma postagem encontrada.</p>
-            </div>
-        @else
-            @foreach ($posts as $post)
-                <div
-                    x-on:click="window.location = '{{ route('home.detail', ['slug' => $post->slug]) }}'"
-                    wire:key="post-{{ $post->id }}"
-                    class="w-full cursor-pointer bg-white p-4 rounded-xl shadow-sm mt-4 flex items-center justify-between transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-gray-50"
-                >
-                    <div>
-                        <h2 class="text-lg font-bold">{{ $post->title }}</h2>
-                        <p class="text-gray-600 mt-2">{{ $post->content }}</p>
-                    </div>
-                    <div>
-                        @if ($post->user_id === auth()->id())
-                            <button
-                                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 cursor-pointer"
-                                x-on:click.stop="
-                                    ((openCreateUpdateModal = true),
-                                        (isLoading = true),
-                                        $dispatch('edit-post', { id: {{ $post->id }} }))
-                                "
-                            >
-                                Editar
-                            </button>
-                            <button
-                                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 cursor-pointer"
-                                x-on:click.stop="
-                                    ((openDeleteModal = true),
-                                        (selectedPostId = {{ $post->id }}),
-                                        (selectedPostTitle = '{{ $post->title }}'))
-                                "
-                            >
-                                Excluir
-                            </button>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-
-            <div class="mt-6">
-                {{ $posts->links() }}
-            </div>
-        @endif
-    </div>
-</div>
+</x-posts.crud-container>
