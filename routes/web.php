@@ -30,4 +30,5 @@ Route::group([
 ], function () {
     Route::livewire('/admin/dashboard', 'admin.dashboard.index')->name('dashboard.index');
     Route::livewire('/admin/users', 'admin.dashboard.users')->name('dashboard.users');
+    Route::livewire('/admin/user/{id}', 'admin.dashboard.user')->name('dashboard.user');
 });

@@ -31,7 +31,7 @@
                             href="{{ route('admin.dashboard.users') }}"
                             class="block px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition"
                         >
-                            Users
+                            Usuários
                         </a>
                     </nav>
                 </aside>

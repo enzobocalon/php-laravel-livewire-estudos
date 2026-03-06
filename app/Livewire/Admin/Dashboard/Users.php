@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Dashboard;
 
+use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -12,6 +13,8 @@ class Users extends Component
 {
     public function render()
     {
-        return view('admin.dashboard.users');
+        return view('admin.dashboard.users', [
+            'users' => User::latest()->get(),
+        ]);
     }
 }

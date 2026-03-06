@@ -1,5 +1,13 @@
 {{-- Precisa do .window pq ele ta em escopos diferentes (divs irmãs) --}}
 <div
+    x-init="
+        @if(session('message'))
+            notification = '{{ session('message') }}';
+            type = '{{ session('type', 'success') }}';
+
+            setTimeout(() => notification = null, 5000);
+        @endif
+    "
     x-data="{ notification: null, type: null }"
     x-on:notify-{{ $channel }}.window="
                 notification = $event.detail.message;
