@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +17,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
+        if (!Auth::check() || Gate::denies('isAdmin')) {
             abort(404, 'Not Found');
         }
-        if (!Auth::user()->is_admin) {
-            abort(404, 'Not Found');
-        }
+        
         return $next($request);
     }
 }

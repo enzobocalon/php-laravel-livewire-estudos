@@ -36,8 +36,6 @@ class User extends Component
             'is_admin' => ['boolean']
         ]);
 
-        $data['is_admin'] = (bool) $this->is_admin;
-
         UserModel::findOrFail($this->userId)->update($data);
         $this->dispatch('notify-admin-user', message: 'Usuário atualizado com sucesso!', type: 'success');
     }

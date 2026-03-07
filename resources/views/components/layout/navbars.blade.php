@@ -44,7 +44,7 @@
                             class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden"
                         >
                             <ul class="py-1 text-sm">
-                                @if (auth()->user()->is_admin)
+                                @can('isAdmin')
                                     <li>
                                         <a
                                             href="{{ route('admin.dashboard.index') }}"
@@ -53,7 +53,7 @@
                                             Dashboard
                                         </a>
                                     </li>
-                                @endif
+                                @endcan
 
                                 <li>
                                     <button

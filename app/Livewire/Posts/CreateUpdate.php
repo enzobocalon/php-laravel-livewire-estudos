@@ -4,6 +4,7 @@ namespace App\Livewire\Posts;
 
 use App\Livewire\Home\Index;
 use App\Models\Post;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
@@ -28,7 +29,7 @@ class CreateUpdate extends Component
         $this->postId = $id;
         // Validação para garantir que o post existe e que o usuario pode editar
         $post = Post::findOrFail($id);
-        if ($post->user_id !== auth()->id() && !auth()->user()->is_admin) {
+        if ($post->user_id !== auth()->id() && Gate::denies('isAdmin')) {
             $this->reset(['title', 'image_path', 'content']);
             $this->dispatch('notify-' . $this->channel, type: 'error', message: 'Você não pode editar esta postagem.');
             $this->dispatch('close-create-update-modal');
@@ -62,7 +63,7 @@ class CreateUpdate extends Component
             $this->dispatch('notify-home', type: 'success', message: 'Postagem criada com sucesso.');// é o nome do evento no x-on
         } else {
             $post = Post::findOrFail($this->postId);
-            if ($post->user_id !== auth()->id() && !auth()->user()->is_admin) {
+            if ($post->user_id !== auth()->id() && Gate::denies('isAdmin')) {
                 $this->dispatch('notify-' . $this->channel, type: 'error', message: 'Você não pode editar esta postagem.');
                 $this->reset(['title', 'image_path', 'content']);
                 $this->dispatch('close-create-update-modal');

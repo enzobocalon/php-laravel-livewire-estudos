@@ -29,7 +29,7 @@
                 </p>
             </div>
             <div>
-                @if ($post->user_id === auth()->id() || auth()->user()->is_admin)
+                @if ($post->user_id === auth()->id() || Gate::allows('isAdmin'))
                     <button
                         class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 cursor-pointer"
                         x-on:click="
